@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.example.sloka_recitation"
-    compileSdk = 35
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 34
+    ndkVersion = "26.1.10909125"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -39,7 +39,7 @@ android {
     defaultConfig {
         applicationId = "com.example.sloka_recitation"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 34
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
