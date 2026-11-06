@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'models/playlist.dart';
+import 'screens/add_edit_sloka_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/menu_screen.dart';
 import 'screens/play_screen.dart';
@@ -43,9 +44,9 @@ class _MainShellState extends State<MainShell> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
+    AddEditSlokaScreen(),
     PlayScreen(),
     PlaylistScreen(),
-    MenuScreen(),
   ];
 
   @override
@@ -55,7 +56,6 @@ class _MainShellState extends State<MainShell> {
   }
 
   void _handleSharedFiles() {
-    // Listen for incoming shared files while the app is running in memory
     _intentSubscription = ReceiveSharingIntent.instance.getMediaStream().listen(
       (List<SharedMediaFile> value) {
         if (value.isNotEmpty) {
@@ -67,7 +67,6 @@ class _MainShellState extends State<MainShell> {
       },
     );
 
-    // Get files when app is opened via intent from closed state
     ReceiveSharingIntent.instance.getInitialMedia().then((List<SharedMediaFile> value) {
       if (value.isNotEmpty) {
         _processSharedFile(value.first.path);
@@ -81,9 +80,8 @@ class _MainShellState extends State<MainShell> {
         final imported = await _shareService.importPlaylist(path);
         if (imported != null && mounted) {
           _snack('Imported shared playlist: "${imported.name}"');
-          // Switch to Playlists tab
           setState(() {
-            _currentIndex = 2;
+            _currentIndex = 3; // Switch to Playlist tab
           });
           Navigator.push(
             context,
@@ -120,9 +118,10 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
+      drawer: const Drawer(
+        child: MenuScreen(),
+      ),
       body: IndexedStack(
         index: _currentIndex,
         children: _screens,
@@ -131,33 +130,37 @@ class _MainShellState extends State<MainShell> {
         currentIndex: _currentIndex,
         onTap: _onNavTap,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: colorScheme.primary,
-        unselectedItemColor: colorScheme.onSurfaceVariant.withOpacity(0.7),
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color(0xFF2563EB),
+        unselectedItemColor: const Color(0xFF64748B),
         selectedLabelStyle: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 12,
         ),
-        unselectedLabelStyle: const TextStyle(fontSize: 12),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+        ),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book_outlined),
-            activeIcon: Icon(Icons.menu_book),
-            label: 'Slokas',
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline),
+            activeIcon: Icon(Icons.add_circle),
+            label: 'Add Sloka',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.play_circle_outline),
             activeIcon: Icon(Icons.play_circle_fill),
-            label: 'Play',
+            label: 'Play the Sloka',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.queue_music_outlined),
             activeIcon: Icon(Icons.queue_music),
-            label: 'Playlists',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz_outlined),
-            activeIcon: Icon(Icons.more_horiz),
-            label: 'More',
+            label: 'Playlist',
           ),
         ],
       ),

@@ -51,37 +51,37 @@ class _QuoteCardState extends State<QuoteCard> {
   Timer? _timer;
 
   static const List<QuoteItem> _quotes = [
-    // 1. Srila Prabhupada quote (Featured first)
+    // 1. Srila Prabhupada (Classic reading photo)
     QuoteItem(
-      imagePath: 'assets/images/prabhupada_reading.jpg',
+      imagePath: 'assets/images/prabhupada_reading_bw.jpg',
       badge: 'FOUNDER-ĀCĀRYA',
       author: 'A.C. Bhaktivedanta Swami Prabhupada',
       quote:
-          '“Reading and studying ślokas from scriptures like the Bhagavad-gītā As It Is and Śrīmad-Bhāgavatam is not an academic or a mechanical exercise, but a direct spiritual connection with Krishna.”',
+          'Reading and studying ślokas from scriptures like the Bhagavad-gītā As It Is and Śrīmad-Bhāgavatam is not an academic or a mechanical exercise, but a direct spiritual connection with Krishna.',
     ),
-    // 2. Srila Prabhupada realizations quote
+    // 2. Srila Prabhupada (Study under desk lamp)
     QuoteItem(
-      imagePath: 'assets/images/prabhupada_quote.jpg',
+      imagePath: 'assets/images/prabhupada_reading.jpg',
       badge: 'DIVINE PRESENCE',
       author: 'A.C. Bhaktivedanta Swami Prabhupada',
       quote:
-          '“When we read Srila Prabhupada’s books, we are sitting in His divine presence, hearing & speaking. When we follow what is in the books—we get realizations.”',
+          'When we read Srila Prabhupada’s books, we are sitting in His divine presence, hearing & speaking. When we follow what is in the books—we get realizations.',
     ),
-    // 3. H.H. Radhanath Swami (Reading)
+    // 3. H.H. Radhanath Swami (Original 1 - Room)
     QuoteItem(
       imagePath: 'assets/images/swami_reading.jpg',
       badge: 'WISDOM & DEVOTION',
       author: 'H.H. Radhanath Swami',
       quote:
-          '“Learning sacred verses is not just memorization, but a profound way to adjust our consciousness, internalize spiritual truth, and cultivate a humble, service-oriented heart.”',
+          'Reciting shlokas is not merely a mechanical vocal exercise — it is a powerful meditation that draws the heart toward the Divine.',
     ),
-    // 4. H.H. Radhanath Swami (Study)
+    // 4. H.H. Radhanath Swami (Original 2 - Train)
     QuoteItem(
       imagePath: 'assets/images/swami_study.jpg',
       badge: 'SACRED CHANTING',
       author: 'H.H. Radhanath Swami',
       quote:
-          '“Sacred verses are divine spiritual vibrations. When chanted with devotion and sincerity, they awaken our dormant love for Krishna and purify the heart.”',
+          'Learning sacred verses is not just memorization, but a profound way to adjust our consciousness, internalize spiritual truth, and cultivate a humble, service-oriented heart.',
     ),
   ];
 
@@ -94,7 +94,7 @@ class _QuoteCardState extends State<QuoteCard> {
 
   void _startAutoPlay() {
     _timer?.cancel();
-    _timer = Timer.periodic(const Duration(seconds: 8), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 7), (timer) {
       if (!mounted) return;
       final nextPage = (_currentPage + 1) % _quotes.length;
       _pageController.animateToPage(
@@ -109,80 +109,6 @@ class _QuoteCardState extends State<QuoteCard> {
     _startAutoPlay();
   }
 
-  void _showQuoteDialog(QuoteItem item) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        contentPadding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-              child: SizedBox(
-                height: 220,
-                child: Image.asset(
-                  item.imagePath,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Text(
-                      item.badge,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    item.author,
-                    style: const TextStyle(
-                      fontFamily: 'Noto Serif',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    item.quote,
-                    style: const TextStyle(
-                      fontFamily: 'Noto Serif',
-                      fontSize: 15,
-                      height: 1.5,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   void dispose() {
     _timer?.cancel();
@@ -192,179 +118,119 @@ class _QuoteCardState extends State<QuoteCard> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.shadow.withOpacity(0.06),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          height: 235,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-        border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.4)),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Carousel Slider for quotes
-          SizedBox(
-            height: 250,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: _quotes.length,
-              onPageChanged: (index) {
-                setState(() => _currentPage = index);
-                _onUserInteraction();
-              },
-              itemBuilder: (context, index) {
-                final item = _quotes[index];
-                return InkWell(
-                  onTap: () {
-                    if (widget.onTap != null) {
-                      widget.onTap!();
-                    } else {
-                      _showQuoteDialog(item);
-                    }
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Thumbnail image with gradient overlay
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: 140,
-                            width: double.infinity,
-                            child: Image.asset(
-                              item.imagePath,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: colorScheme.primaryContainer,
-                                  child: Icon(
-                                    Icons.menu_book,
-                                    size: 48,
-                                    color: colorScheme.onPrimaryContainer,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Positioned.fill(
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.black.withOpacity(0.68),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            left: 14,
-                            right: 14,
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 4),
-                                  decoration: BoxDecoration(
-                                    color: colorScheme.primary,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Text(
-                                    item.badge,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 0.8,
-                                    ),
-                                  ),
-                                ),
-                                const Spacer(),
-                                Flexible(
-                                  child: Text(
-                                    item.author,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      shadows: [
-                                        Shadow(
-                                            color: Colors.black87,
-                                            blurRadius: 4),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+          clipBehavior: Clip.antiAlias,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: _quotes.length,
+            onPageChanged: (index) {
+              setState(() => _currentPage = index);
+              _onUserInteraction();
+            },
+            itemBuilder: (context, index) {
+              final item = _quotes[index];
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    item.imagePath,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: const Color(0xFF2D1810),
+                        child: const Icon(Icons.menu_book, color: Colors.white54, size: 48),
+                      );
+                    },
+                  ),
+                  // Dark contrast gradient overlay
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.35),
+                          Colors.black.withOpacity(0.80),
                         ],
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(14, 10, 14, 4),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '””',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.w900,
+                            height: 0.8,
+                            fontFamily: 'serif',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Expanded(
                           child: Text(
                             item.quote,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontFamily: 'Noto Serif',
-                              fontStyle: FontStyle.italic,
-                              height: 1.45,
-                              fontSize: 13,
-                              color: colorScheme.onSurface.withOpacity(0.9),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.5,
+                              fontWeight: FontWeight.w600,
+                              height: 1.35,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          '— ${item.author}',
+                          style: const TextStyle(
+                            color: Color(0xFFF59E0B),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              },
-            ),
+                ],
+              );
+            },
           ),
-
-          // Dot indicator bar at bottom
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0, right: 14.0, left: 14.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(_quotes.length, (index) {
-                final isActive = index == _currentPage;
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
-                  width: isActive ? 18 : 6,
-                  height: 6,
-                  decoration: BoxDecoration(
-                    color: isActive
-                        ? colorScheme.primary
-                        : colorScheme.outlineVariant,
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                );
-              }),
-            ),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 8),
+        // 4-Dot indicator
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(_quotes.length, (index) {
+            final isActive = index == _currentPage;
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              width: isActive ? 22 : 6,
+              height: 6,
+              decoration: BoxDecoration(
+                color: isActive ? const Color(0xFFF59E0B) : const Color(0xFFCBD5E1),
+                borderRadius: BorderRadius.circular(3),
+              ),
+            );
+          }),
+        ),
+      ],
     );
   }
 }
