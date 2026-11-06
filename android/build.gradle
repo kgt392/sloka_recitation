@@ -10,27 +10,19 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 
-gradle.beforeProject { project ->
-    project.extensions.extraProperties.set("flutter", [
-        compileSdkVersion: 34,
-        minSdkVersion: 21,
-        targetSdkVersion: 34,
-        ndkVersion: "26.1.10909125"
-    ])
-}
-
-subprojects { subproject ->
-    if (subproject.state.executed) {
-        if (subproject.hasProperty("android")) {
-            subproject.android.compileSdkVersion = 34
-        }
-    } else {
-        subproject.afterEvaluate {
-            if (subproject.hasProperty("android")) {
-                subproject.android.compileSdkVersion = 34
+subprojects { project ->
+    project.plugins.whenPluginAdded { plugin ->
+        if (plugin.class.name.startsWith("com.android.build.gradle")) {
+            project.android {
+                compileSdkVersion 35
+                buildToolsVersion "35.0.0"
             }
         }
     }
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
 }
 
 tasks.register("clean", Delete) {
