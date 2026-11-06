@@ -17,7 +17,7 @@ dependencies:
   share_plus: ^9.0.0
   shared_preferences: ^2.2.3
   archive: ^3.6.1
-  receive_sharing_intent: ^1.8.0
+  receive_sharing_intent: ^1.4.8
   url_launcher: ^6.3.0
   permission_handler: ^11.3.1
   uuid: ^4.4.0
