@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.sloka_recitation"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
